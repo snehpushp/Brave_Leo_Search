@@ -289,16 +289,12 @@ User Query: {query}
 -------
 
 {sources}
-"""
+""",
         )
     ]
 
     client = Groq()
-    stream = client.chat.completions.create(
-        messages=messages,
-        model="llama3-70b-8192",
-        stream=True
-    )
+    stream = client.chat.completions.create(messages=messages, model="llama3-70b-8192", stream=True)
 
     return stream
 
@@ -330,11 +326,7 @@ def orchestrator(messages: List[dict]):
     if "Search Not Required".lower() in remove_punctuation_commas(search_query).lower():
         messages[-1]["content"] = original_user_query
         client = Groq()
-        stream = client.chat.completions.create(
-            messages=messages,
-            model="llama3-8b-8192",
-            stream=True
-        )
+        stream = client.chat.completions.create(messages=messages, model="llama3-8b-8192", stream=True)
     else:
         # Performing search for the search_query
         logger.info("Searching the internet.")
